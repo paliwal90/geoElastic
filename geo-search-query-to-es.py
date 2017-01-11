@@ -3,15 +3,13 @@ from elasticsearch import Elasticsearch
 import time
 import pandas as pd
 
-start_time = time.time()
-
 ES_INDEX = 'poi'
 ES_TYPE = 'poi_elastic'
 FILE_PATH = "/home/paliwal/geo/poi/sampled_locations.csv"
 
 es = Elasticsearch([{'host': 'xxx.xxx.xxx.xx', 'port': xxxx}])
 
-def query(coor):
+def query(coor, start_time):
   res = es.search(index=ES_INDEX, doc_type=ES_TYPE, body={
     "query": {
           "bool" : {
@@ -48,7 +46,7 @@ if __name__ == '__main__':
   for coor in coors.ix[:,0]:
     start_time = time.time()
     print(coor)
-    query(coor)
+    query(coor, start_time)
   
 
 
