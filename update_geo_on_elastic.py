@@ -96,7 +96,7 @@ if __name__ == '__main__':
         s1 = ''.join((row['poi_name']).split()) #resolve whitespace 
         s2 = ''.join((potential_duplicate['_source']['poi_name']).split()) 
       
-        if(editdistance.eval(s1,s2) <=1):
+        if(editdistance.eval(s1.lower(),s2.lower()) <=1):
           es.update(index=ES_INDEX, doc_type=ES_TYPE,id=potential_duplicate['_id'],
                 body= { "doc": 
                   {'location': row['location'],'cat': row['cat'],
