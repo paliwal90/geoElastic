@@ -44,11 +44,6 @@ if __name__ == '__main__':
   
   print("Loading json")
   json_data = load_json(FILE_PATH)
-    
-  if es.indices.exists(ES_INDEX):
-    print("deleting '%s' index..." % (ES_INDEX))
-    res = es.indices.delete(index = ES_INDEX)
-    print(" response: '%s'" % (res))
 
   settings = {
       "settings": {
@@ -77,10 +72,6 @@ if __name__ == '__main__':
       }
     }
   }
-
-  print("creating '%s' index..." % (ES_INDEX))
-  res = es.indices.create(index = ES_INDEX,ignore=400, body=settings)
-  print(" response: '%s'" % (res))
   
   print("Pushing/updating data in progress...")
   for row in json_data:
@@ -120,7 +111,6 @@ if __name__ == '__main__':
         es.index(index=ES_INDEX, doc_type=ES_TYPE, body=doc)
         
    
-    
     
 
 
