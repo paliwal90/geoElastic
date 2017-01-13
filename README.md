@@ -60,14 +60,14 @@ This returns planet-latest.csv
 6. Update Schema for Data on ES
 =======================================
 
-[geo-search-query-to-es.py](https://github.com/paliwal90/geoElastic/blob/master/geo-search-query-to-es.py)
+[update-geo-on-elastic.py](https://github.com/paliwal90/geoElastic/blob/master/update-geo-on-elastic.py)
 
 Principal Logic for Pushing Data
 ================================
 
 1. If we know there are no duplicates in locations data, [bulk-bhunk-indexing](https://github.com/paliwal90/geoElastic/blob/master/geo-bulk-chunk-indexing-to-es.py) can be used for effectively pushing data to elastic in chunking.
 
-2. If we suspect (which is true by default) there are duplicates, then for every input location, the following [update-schema](https://github.com/paliwal90/geoElastic/blob/master/update_geo_on_elastic.py) should be supplied.
+2. If we suspect (which is true by default) there are duplicates, then for every input location, the following [update-schema](https://github.com/paliwal90/geoElastic/blob/master/update-geo-on-elastic.py) should be supplied.
 
 Principal logic is as follow:
 
