@@ -19,7 +19,7 @@ The following features are stored from each source:
 * cat: category of poi_name.
 * poi_name: name of poi - point of interest.
 * address: address of poi.
-* source: source from where data ie collected.
+* source: source from where data is being collected.
 
 
 2. OSM pbf to csv conversion
@@ -65,7 +65,7 @@ This returns planet-latest.csv
 Principal Logic for Pushing Data
 ================================
 
-1. If we know there are no duplicates in locations data, [bulk-bhunk-indexing](https://github.com/paliwal90/geoElastic/blob/master/geo-bulk-chunk-indexing-to-es.py) can be used for effectively pushing data to elastic in chunking.
+1. If we know there are no duplicates in locations data, [bulk-chunk-indexing](https://github.com/paliwal90/geoElastic/blob/master/geo-bulk-chunk-indexing-to-es.py) can be used for effectively pushing data to elastic in chunking.
 
 2. If we suspect (which is true by default) there are duplicates, then for every input location, the following [update-schema](https://github.com/paliwal90/geoElastic/blob/master/update-geo-on-elastic.py) should be supplied.
 
