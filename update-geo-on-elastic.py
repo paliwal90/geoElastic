@@ -74,6 +74,8 @@ if __name__ == '__main__':
   }
   
   print("Pushing/updating data in progress...")
+  total_pushed = 0
+  total_duplicates_unpushed = 0
   for row in json_data:
     doc = {
        'location': row['location'],
@@ -87,6 +89,7 @@ if __name__ == '__main__':
     
     #Levenshtein distance based poi dulicate matching
     if(potential_duplicates['hits']['total']==0):
+      total_pushed = total_pushed + 1
       es.index(index=ES_INDEX, doc_type=ES_TYPE, body=doc)
     else:
       i=0
@@ -97,6 +100,7 @@ if __name__ == '__main__':
         s2 = ''.join((potential_duplicate['_source']['poi_name']).split()) 
       
         if(editdistance.eval(s1.lower(),s2.lower()) <=1):
+          total_duplicates_unpushed = total_duplicates_unpushed + 1
           es.update(index=ES_INDEX, doc_type=ES_TYPE,id=potential_duplicate['_id'],
                 body= { "doc": 
                   {'location': row['location'],'cat': row['cat'],
@@ -108,6 +112,7 @@ if __name__ == '__main__':
           not_matched=not_matched+1
       
       if(i==not_matched):
+        total_pushed = total_pushed + 1
         es.index(index=ES_INDEX, doc_type=ES_TYPE, body=doc)
         
   f = open('/home/paliwal/geo/geo_database.txt', 'wb')
