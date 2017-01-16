@@ -110,12 +110,8 @@ if __name__ == '__main__':
       if(i==not_matched):
         es.index(index=ES_INDEX, doc_type=ES_TYPE, body=doc)
         
-   
-    
-
-
-
-
-
-
+  f = open('/home/paliwal/geo/geo_database.txt', 'wb')
+  dict = {'total_pushed': total_pushed, 'total_duplicates_unpushed)': total_duplicates_unpushed, 'Status': "Finished."}
+  f.write('dict = ' + repr(dict) + '\n' )
+  f.close()
 
