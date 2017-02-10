@@ -77,10 +77,14 @@ if __name__ == '__main__':
   total_pushed = 0
   total_duplicates_unpushed = 0
   for row in json_data:
+    if ('poi_name' in row):
+      npoi=''.join((row['poi_name']).split()) #resolve whitespace 
+    else:
+      npoi=''
     doc = {
        'location': row['location'],
        'cat': row['cat'],
-       'poi_name': ''.join((row['poi_name']).split()) ,
+       'poi_name': npoi ,
        'address': row['address'],
        'source': row['source'],
        'timestamp': '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
@@ -96,7 +100,7 @@ if __name__ == '__main__':
       not_matched=0
       for potential_duplicate in potential_duplicates['hits']['hits']:
         i=i+1
-        s1 = ''.join((row['poi_name']).split()) #resolve whitespace 
+        s1 = npoi  
         s2 = ''.join((potential_duplicate['_source']['poi_name']).split()) 
       
         if(editdistance.eval(s1.lower(),s2.lower()) <=1):
@@ -104,7 +108,7 @@ if __name__ == '__main__':
           es.update(index=ES_INDEX, doc_type=ES_TYPE,id=potential_duplicate['_id'],
                 body= { "doc": 
                   {'location': row['location'],'cat': row['cat'],
-                  'poi_name': ''.join((row['poi_name']).split()) ,'address': row['address'],
+                  'poi_name': npoi ,'address': row['address'],
                   'source': row['source'],'timestamp': '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
                   }
                 })
